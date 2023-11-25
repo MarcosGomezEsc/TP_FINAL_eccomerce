@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Autos_Crtl } from "./Autos_Ctrl";
+import { Autos_Crtl } from "./Autos_Ctrl.js";
 export const router = Router();
 // import { isAuth } from "../../middlewares/session.js";
 

@@ -1,12 +1,20 @@
 import { connection } from "../../db_config.js";
 
-export class Autos_Model {
+export class Autos_Models {
   static async getAll(Marca) {
-    if (Marca) {
-      const [autos_nuevos, _info] = await connection.query(
-        `SELECT Marca, Modelo, Anio, Color, TipoCombustible, Precio, NumPuertas,Motor, Imagen, BIN_TO_UUID(autos_nuevos.id) AS id FROM autos_nuevos`
+    try {
+      if (Marca) {
+        const [autos_nuevos, _info] = await connection.query(
+          `SELECT Marca, Modelo, Anio, Color, TipoCombustible, Precio, NumPuertas, Motor, Imagen, BIN_TO_UUID(autos_nuevos.id) AS id FROM autos_nuevos WHERE Marca = ?`,
+          [Marca]
+        );
+        return autos_nuevos || [];
+      }
+    } catch (error) {
+      console.error(
+        `Error al obtener autos nuevos: ${(error.message = "no autos")}`
       );
-      return autos_nuevos.length ? autos_nuevos : null;
+      throw error;
     }
 
     //     const [movies, _info] = await connection.query(

@@ -3,7 +3,7 @@ import { isValidUUID } from "../utils/isValidUUID.js";
 
 export class Autos_Crtl {
   static async getAll(req, res) {
-    // res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "*");
     const { Marca } = req.query;
     const autos = await Autos_Models.getAll(Marca);
     //resolver que la respuesta sea una película con todos sus géneros en vez de repetir la

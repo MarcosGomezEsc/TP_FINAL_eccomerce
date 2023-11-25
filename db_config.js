@@ -4,7 +4,7 @@ const dbConfig = {
   user: "root",
   password: process.env.DB_PASS,
   port: 3306,
-  database: "movies",
+  database: "Autos_nuevos",
 };
 // una conexión se establece cada vez que se necesita conectar con la DB
 export const connection = mysql.createPool(dbConfig);
