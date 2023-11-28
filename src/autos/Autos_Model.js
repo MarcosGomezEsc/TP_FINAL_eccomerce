@@ -3,12 +3,22 @@ import { connection } from "../../db_config.js";
 export class Autos_Models {
   static async getAll(Marca) {
     try {
-      if (Marca) {
+      if (!Marca) {
         const [autos_nuevos, _info] = await connection.query(
-          `SELECT Marca, Modelo, Anio, Color, TipoCombustible, Precio, NumPuertas, Motor, Imagen, BIN_TO_UUID(autos_nuevos.id) AS id FROM autos_nuevos WHERE Marca = ?`,
-          [Marca]
+          `SELECT
+            Marca,
+            Modelo,
+            Anio,
+            Color,
+            TipoCombustible,
+            Precio,
+            NumPuertas
+            Motor,
+            Imagen
+          FROM autos_nuevos.autos_nuevos`
         );
-        return autos_nuevos || [];
+        console.log("autos_nuevos");
+        return autos_nuevos.length > 0 ? autos_nuevos : [];
       }
     } catch (error) {
       console.error(
@@ -16,16 +26,17 @@ export class Autos_Models {
       );
       throw error;
     }
-
-    //     const [movies, _info] = await connection.query(
-    //       `SELECT m.title, g.name as genre, m.year, m.director, BIN_TO_UUID(m.id) AS id FROM movies m
-    //       JOIN movie_genres mg ON mg.movie_id = m.id
-    //       JOIN genres g ON mg.genre_id = g.id
-    //       WHERE director = ?`,
-    //       [director]
-    //     );
-    //     return movies.length ? movies : null;
   }
+
+  //     const [movies, _info] = await connection.query(
+  //       `SELECT m.title, g.name as genre, m.year, m.director, BIN_TO_UUID(m.id) AS id FROM movies m
+  //       JOIN movie_genres mg ON mg.movie_id = m.id
+  //       JOIN genres g ON mg.genre_id = g.id
+  //       WHERE director = ?`,
+  //       [director]
+  //     );
+  //     return movies.length ? movies : null;
+
   //   /*
   //    * @param id number
   //    * @return field list -> title, year, director, rate, id

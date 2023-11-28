@@ -10,19 +10,19 @@ export class Autos_Crtl {
     // película por cada género al que la película pertenece
     autos
       ? res.status(200).json(autos)
-      : res.status(404).json({ message: "Movie Not Found" });
+      : res.status(404).json({ message: "Autos Not Found" });
+
+    // static async getById(req, res) {
+    //   const { id } = req.params;
+    //   const isValidID = isValidUUID(id);
+    //   if (!isValidID) return res.status(422).json({ message: "Not valid ID" });
+
+    //   const movie = await MovieMd.getById(id);
+    //   if (!movie.length)
+    //     return res.status(404).json({ message: "Movie Not Found" });
+    //   res.status(200).json(movie);
+    // }
   }
-
-  // static async getById(req, res) {
-  //   const { id } = req.params;
-  //   const isValidID = isValidUUID(id);
-  //   if (!isValidID) return res.status(422).json({ message: "Not valid ID" });
-
-  //   const movie = await MovieMd.getById(id);
-  //   if (!movie.length)
-  //     return res.status(404).json({ message: "Movie Not Found" });
-  //   res.status(200).json(movie);
-  // }
 
   // static async deleteOne(req, res) {
   //   const { id } = req.params;

@@ -20,11 +20,11 @@ app.listen(PORT, (err) => {
 });
 
 // Ejemplo de ruta para la raíz
-app.get("/", (req, res) => {
-  res.send("¡Hola!");
-});
+// app.get("/", (req, res) => {
+//   res.send("¡Hola!");
+// });
 
-app.use("/autos", Autos_Router);
+app.use("/", Autos_Router);
 
 //nombre del archivo enrutador que estamos definiendo);
 //nombre del archivo enrutador que estamos definiendo);
