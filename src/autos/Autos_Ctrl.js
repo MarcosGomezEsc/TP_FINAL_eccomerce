@@ -11,42 +11,64 @@ export class Autos_Crtl {
     autos
       ? res.status(200).json(autos)
       : res.status(404).json({ message: "Autos Not Found" });
-
-    // static async getById(req, res) {
-    //   const { id } = req.params;
-    //   const isValidID = isValidUUID(id);
-    //   if (!isValidID) return res.status(422).json({ message: "Not valid ID" });
-
-    //   const movie = await MovieMd.getById(id);
-    //   if (!movie.length)
-    //     return res.status(404).json({ message: "Movie Not Found" });
-    //   res.status(200).json(movie);
-    // }
   }
 
-  // static async deleteOne(req, res) {
-  //   const { id } = req.params;
-  //   const isValidID = isValidUUID(id);
-  //   if (!isValidID) return res.status(422).json({ message: "Not valid ID" });
-  //   const result = await MovieMd.deleteOne(id);
-  //   if (!result) return res.status(404).json({ message: "Movie Not Found" });
-  //   res.status(204);
-  // }
+  //busca por ID
+  static async getById(req, res) {
+    const { id } = req.params;
+    const isValidID = isValidUUID(id);
+    if (!isValidID) return res.status(422).json({ message: "Not valid ID" });
 
-  // static async addOne(req, res) {
-  //   const validationResult = validateMovie(req.body);
-  //   if (!validationResult.success) {
-  //     return res.status(422).json(validationResult.error);
-  //   }
-  //   try {
-  //     await MovieMd.addOne(req.body);
-  //     res.status(201).json({ message: "Movie created" });
-  //   } catch (error) {
-  //     error.message.startsWith("Incorrect")
-  //       ? res.status(400).json({ message: error.message })
-  //       : res.status(500).json({ message: "Internal Server Error" });
-  //   }
-  // }
+    const autos = await Autos_Models.getById(id);
+    if (!autos.length)
+      return res.status(404).json({ message: "Auto Not Found" });
+
+    res.status(200).json(autos);
+  }
+
+  //borra una peli
+  static async deleteOne(req, res) {
+    const { id } = req.params;
+    const isValidID = isValidUUID(id);
+    if (!isValidID) return res.status(422).json({ message: "Not valid ID" });
+
+    const result = await Autos_Models.deleteOne(id);
+    if (!result) return res.status(404).json({ message: "Car Not Found" });
+
+    res.status(204).end();
+  }
+
+  //ubsca por director
+  /*  static async getByQuery(req, res) {
+    if (!req.query.Marca)
+      return res
+        .status(400)
+        .json({ message: `debe tener el nombre similar a ${Marca}` });
+  }
+*/
+
+  //crea nuevo post de auto
+  static async addOne(req, res) {
+    const { title, year, director, duration, genre, rate } = req.body;
+    const Imagen = `${URL}/${req.file.filename}`;
+    const id = req.body.id;
+
+    const isValidID = isValidUUID(id);
+    if (!isValidID) {
+      return res.status(422).json({ message: "Invalid ID" });
+    }
+
+    try {
+      await Autos_Models.addOne(req.body);
+      res.status(201).json({ message: "Auto created" });
+    } catch (error) {
+      if (error.message.startsWith("Incorrect")) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Internal Server Error" });
+      }
+    }
+  }
 
   // static async updateOne(req, res) {
   //   const { id } = req.params;
