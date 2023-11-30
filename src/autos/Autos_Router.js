@@ -13,3 +13,5 @@ router.delete("/:id", Autos_Crtl.deleteOne);
 router.post("/", Autos_Crtl.addOne);
 
 // router.patch("/:id", isAuth, Autos_Crtl.updateOne);
+
+router.patch("/:id", Autos_Crtl.updateOne);

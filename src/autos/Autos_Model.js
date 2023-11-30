@@ -87,4 +87,17 @@ export class Autos_Models {
       throw new Error("Error inserting auto into the database");
     }
   }
+
+  //actualización
+  static async updateOne(id, autoParcial) {
+    let queryString = "";
+    for (const key in autoParcial) {
+      queryString += `${key} = '${autoParcial[key]}',`;
+    }
+    const [resultado, _info] = await connection.query(
+      `UPDATE autos_nuevos.autos_nuevos SET ${queryString} WHERE autos_nuevos.autos_nuevos.id = UUID_TO_BIN(?)`,
+      [id]
+    );
+    return resultado.affectedRows;
+  }
 }

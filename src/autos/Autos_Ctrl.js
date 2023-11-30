@@ -78,4 +78,19 @@ export class Autos_Crtl {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  //actualizar
+  static async updateOne(req, res) {
+    const { id } = req.params;
+    const isValidID = isValidUUID;
+    if (!isValidID) return res.status(422).json({ message: "id no válido" });
+    const [isAuto_Nuevo, _info] = await Autos_Models.getById(id);
+
+    if (!isAuto_Nuevo)
+      return res.status(404).json({ message: "Auto No Encontrado" });
+    const Actualizacion_Auto = await Autos_Models.updateOne(id, req.body);
+    Actualizacion_Auto
+      ? res.status(200).json({ message: "auto encontrado" })
+      : res.status(500).json({ message: "error servicio interno" });
+  }
 }

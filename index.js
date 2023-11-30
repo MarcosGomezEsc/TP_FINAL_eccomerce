@@ -25,6 +25,3 @@ app.listen(PORT, (err) => {
 // });
 
 app.use("/", Autos_Router);
-
-//nombre del archivo enrutador que estamos definiendo);
-//nombre del archivo enrutador que estamos definiendo);
