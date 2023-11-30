@@ -6,8 +6,7 @@ export class Autos_Crtl {
     res.header("Access-Control-Allow-Origin", "*");
     const { Marca } = req.query;
     const autos = await Autos_Models.getAll(Marca);
-    //resolver que la respuesta sea una película con todos sus géneros en vez de repetir la
-    // película por cada género al que la película pertenece
+
     autos
       ? res.status(200).json(autos)
       : res.status(404).json({ message: "Autos Not Found" });
@@ -20,10 +19,10 @@ export class Autos_Crtl {
     if (!isValidID) return res.status(422).json({ message: "Not valid ID" });
 
     const autos = await Autos_Models.getById(id);
-    if (!autos.length)
-      return res.status(404).json({ message: "Auto Not Found" });
+    if (!autos) return res.status(404).json({ message: "Auto Not Found" });
 
     res.status(200).json(autos);
+    console.log(autos);
   }
 
   //borra una peli

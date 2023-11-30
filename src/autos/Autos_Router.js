@@ -10,6 +10,6 @@ router.get("/:id", Autos_Crtl.getById);
 //insert auth_middleware between request and controller
 router.delete("/:id", Autos_Crtl.deleteOne);
 
-router.post("/", Autos_Crtl.addOne);
+router.patch("/:id", Autos_Crtl.addOne);
 
 // router.patch("/:id", isAuth, Autos_Crtl.updateOne);

@@ -9,7 +9,7 @@ app.disable("x-powered-by");
 
 app.use(express.json());
 
-const PORT = process.env.PORT || 4200;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, (err) => {
   console.log(
@@ -28,4 +28,3 @@ app.use("/", Autos_Router);
 
 //nombre del archivo enrutador que estamos definiendo);
 //nombre del archivo enrutador que estamos definiendo);
-// app.use("/users", usersRt);
