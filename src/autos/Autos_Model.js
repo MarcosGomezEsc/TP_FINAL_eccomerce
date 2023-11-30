@@ -92,12 +92,16 @@ export class Autos_Models {
   static async updateOne(id, autoParcial) {
     let queryString = "";
     for (const key in autoParcial) {
-      queryString += `${key} = '${autoParcial[key]}',`;
+      queryString += `${key} = ?, `;
     }
+    queryString = queryString.slice(0, -2); // Eliminar la coma al final
+    const values = Object.values(autoParcial);
+
     const [resultado, _info] = await connection.query(
       `UPDATE autos_nuevos.autos_nuevos SET ${queryString} WHERE autos_nuevos.autos_nuevos.id = UUID_TO_BIN(?)`,
-      [id]
+      [...values, id]
     );
+
     return resultado.affectedRows;
   }
 }
