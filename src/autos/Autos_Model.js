@@ -1,4 +1,4 @@
-import { isValid } from "zod";
+// import { isValid } from "zod";
 import { connection } from "../../db_config.js";
 
 export class Autos_Models {
@@ -14,10 +14,9 @@ export class Autos_Models {
             Color,
             TipoCombustible,
             Precio,
-            NumPuertas
+            NumPuertas,
             Motor,
-            Imagen,
-            BIN_TO_UUID(id)
+            Imagen
           FROM autos_nuevos.autos_nuevos`
         );
         return autos_nuevos.length > 0 ? autos_nuevos : [];
@@ -34,7 +33,7 @@ export class Autos_Models {
   static async getById(id) {
     const [autos_nuevos, _info] = await connection.query(
       `SELECT
-          Marca, Modelo, Anio, Color, TipoCombustible, Precio, NumPuertas, Motor, Imagen, BIN_TO_UUID(id) as id FROM autos_nuevos.autos_nuevos WHERE id = UUID_TO_BIN(?)`,
+          Marca, Modelo, Anio, Color, TipoCombustible, Precio, NumPuertas, Motor, Imagen FROM autos_nuevos.autos_nuevos WHERE id = UUID_TO_BIN(?)`,
       [id]
     );
     console.log(autos_nuevos);
@@ -67,7 +66,7 @@ export class Autos_Models {
     try {
       const result = await connection.query(
         `
-        INSERT INTO autos (Marca, Modelo, Anio, Color, TipoCombustible, Precio, NumPuertas, Motor, Imagen) 
+        INSERT INTO autos_nuevos.autos_nuevos (Marca, Modelo, Anio, Color, TipoCombustible, Precio, NumPuertas, Motor, Imagen) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           Marca,

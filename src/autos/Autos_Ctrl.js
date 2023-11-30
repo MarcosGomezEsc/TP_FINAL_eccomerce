@@ -48,37 +48,34 @@ export class Autos_Crtl {
 
   //crea nuevo post de auto
   static async addOne(req, res) {
-    const { title, year, director, duration, genre, rate } = req.body;
-    const Imagen = `${URL}/${req.file.filename}`;
-    const id = req.body.id;
-
-    const isValidID = isValidUUID(id);
-    if (!isValidID) {
-      return res.status(422).json({ message: "Invalid ID" });
-    }
+    const {
+      Marca,
+      Modelo,
+      Anio,
+      Color,
+      TipoCombustible,
+      Precio,
+      NumPuertas,
+      Motor,
+      Imagen,
+    } = req.body;
 
     try {
-      await Autos_Models.addOne(req.body);
+      await Autos_Models.addOne({
+        Marca,
+        Modelo,
+        Anio,
+        Color,
+        TipoCombustible,
+        Precio,
+        NumPuertas,
+        Motor,
+        Imagen,
+      });
+
       res.status(201).json({ message: "Auto created" });
     } catch (error) {
-      if (error.message.startsWith("Incorrect")) {
-        res.status(400).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: "Internal Server Error" });
-      }
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
-
-  // static async updateOne(req, res) {
-  //   const { id } = req.params;
-  //   const isValidID = isValidUUID(id);
-  //   if (!isValidID) return res.status(422).json({ message: "Not valid ID" });
-  //   const [isMovie, _info] = await MovieMd.getById(id);
-
-  //   if (!isMovie) return res.status(404).json({ message: "Movie Not Found" });
-  //   const updatedMovie = await MovieMd.updateOne(id, req.body);
-  //   updatedMovie
-  //     ? res.status(200).json({ message: "Movie updated" })
-  //     : res.status(500).json({ message: "Internal Server Error" });
-  // }
 }
